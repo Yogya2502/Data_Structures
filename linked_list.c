@@ -4,11 +4,10 @@
 struct Node {
     int data;
     struct Node* next;
-};
+}
   
 int main()
 {
-    /* we will take four pointers of the same datatype and value stored in each one of them is NULL*/
     struct Node* head = NULL;
     struct Node* second = NULL;
     struct Node* third = NULL;
