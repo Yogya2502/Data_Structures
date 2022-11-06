@@ -73,3 +73,4 @@ int main(void)
  
      return(0);
 }
+//reference from https://www.geeksforgeeks.org/reverse-a-linked-list-in-groups-of-given-size/
