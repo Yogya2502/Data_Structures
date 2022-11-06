@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
  // nuser defined data type
@@ -32,7 +33,7 @@ void push(struct Node** ref, int new_data)// we have created this function to pu
         = (struct Node*)malloc(sizeof(struct Node));
     n_n->data = new_data;
     n_n->next = (*ref);
-    (*ref) = new_node;
+    (*ref) = n_n;
 }
  
 
