@@ -8,10 +8,12 @@ struct Node {
  
 static void reverse(struct Node** ref)
 {
-    struct Node* prev = NULL;
+   // intialize three pointers prev as NULL , head as ref and next as NULL.
+   struct Node* prev = NULL;
     struct Node* Head = *ref;
     struct Node* next = NULL;
     while (Head!= NULL) {
+    // before changing the next of head, we store the next node 
          next = Head->next;
  
         // Reverse Head node's pointer
@@ -24,18 +26,17 @@ static void reverse(struct Node** ref)
     *ref = prev;
 }
  
-/* Function to push a node */
-void push(struct Node** ref, int new_data)
+void push(struct Node** ref, int new_data)// we have created this function to push the node.
 {
-    struct Node* new_node
+    struct Node* n_n
         = (struct Node*)malloc(sizeof(struct Node));
-    new_node->data = new_data;
-    new_node->next = (*ref);
+    n_n->data = new_data;
+    n_n->next = (*ref);
     (*ref) = new_node;
 }
  
-/* Function to print linked list */
-void printList(struct Node* head)
+
+void printList(struct Node* head)// the following function will print out the prepared linked list
 {
     struct Node* temp = head;
     while (temp != NULL) {
@@ -54,7 +55,7 @@ int main()
     push(&head, 50);
     push(&head, 70);
     push(&head, 100);
- 
+ // here the push function has been called in order to prepare the linked list.
     printf("Given linked list\n");
     printList(head);
     reverse(&head);
