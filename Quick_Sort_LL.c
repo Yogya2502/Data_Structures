@@ -1,44 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Creating structure
+// user defined datatype.
 struct Node {
 	int data;
-	struct Node* next;
+	struct Node* new;
 };
 
-// Add new node at end of linked list
-void insert(struct Node** head, int value)
+void insert(struct Node** head, int val)// this function has been created to add a node in the linked list
 {
-	// Create dynamic node
 	struct Node* node
-		= (struct Node*)malloc(sizeof(struct Node));
+		= (struct Node*)malloc(sizeof(struct Node));// using malloc we allocate dynamic memory to this node
 	if (node == NULL) {
-		// checking memory overflow
 		printf("Memory overflow\n");
 	}
 	else {
-		node->data = value;
-		node->next = NULL;
+		node->data = val;
+		node->new = NULL;
 		if (*head == NULL) {
 			*head = node;
 		}
 		else {
 			struct Node* temp = *head;
-
-			// finding last node
-			while (temp->next != NULL) {
-				temp = temp->next;
+			while (temp->new != NULL) {
+				temp = temp->new;
 			}
-
-			// adding node at last position
-			temp->next = node;
+			temp->new = node; // linking a new node at the end of the list
 		}
 	}
 }
 
-// Displaying linked list element
-void display(struct Node* head)
+void display(struct Node* head) //we create this function to display the required elements of the linked list
 {
 	if (head == NULL) {
 		printf("Empty linked list");
@@ -48,73 +40,65 @@ void display(struct Node* head)
 	printf("\n Linked List :");
 	while (temp != NULL) {
 		printf(" %d", temp->data);
-		temp = temp->next;
+		temp = temp->new;
 	}
 }
 
-// Finding last node of linked list
-struct Node* last_node(struct Node* head)
+struct Node* ln(struct Node* head)//reaching out to the last node of the linked list
 {
 	struct Node* temp = head;
-	while (temp != NULL && temp->next != NULL) {
-		temp = temp->next;
+	while (temp != NULL && temp->new != NULL) {
+		temp = temp->new;
 	}
 	return temp;
 }
 
-// We are Setting the given last node position to its proper
-// position
-struct Node* parition(struct Node* first, struct Node* last)
+struct Node* parition(struct Node* F, struct Node* L)// using the first and last element
 {
 	// Get first node of given linked list
-	struct Node* pivot = first;
-	struct Node* front = first;
+	struct Node* pivot = F;
+	struct Node* front = F;
 	int temp = 0;
-	while (front != NULL && front != last) {
-		if (front->data < last->data) {
-			pivot = first;
+	while (front != NULL && front != L) {
+		if (front->data < L->data) {
+			pivot = F;
 
 			// Swapping node values
-			temp = first->data;
-			first->data = front->data;
+			temp = F->data;
+			F->data = front->data;
 			front->data = temp;
-
-			// Visiting the next node
-			first = first->next;
+			F = F->new;
 		}
-
-		// Visiting the next node
-		front = front->next;
+		front = front->new;
 	}
-
 	// Change last node value to current node
-	temp = first->data;
-	first->data = last->data;
-	last->data = temp;
+	temp = F->data;
+	F->data = L->data;
+	L->data = temp;
 	return pivot;
 }
 
-// Performing quick sort in the given linked list
-void quick_sort(struct Node* first, struct Node* last)
+void sort(struct Node* first, struct Node* last)// function for quick sort on a linked list
 {
-	if (first == last) {
+   int F,L;// first and last element
+
+	if (F == L) {
 		return;
 	}
-	struct Node* pivot = parition(first, last);
+	struct Node* pivot = parition(F, L);
 
-	if (pivot != NULL && pivot->next != NULL) {
-		quick_sort(pivot->next, last);
+	if (pivot != NULL && pivot->new != NULL) {
+		sort(pivot->new, L);
 	}
 
-	if (pivot != NULL && first != pivot) {
-		quick_sort(first, pivot);
+	if (pivot != NULL && F != pivot) {
+		sort(F, pivot);
 	}
 }
 int main()
 {
 	struct Node* head = NULL;
 
-	// Create linked list
 	insert(&head, 100);
 	insert(&head, 90);
 	insert(&head, 80);
@@ -125,12 +109,9 @@ int main()
 	insert(&head, 30);
 	insert(&head, 20);
 	insert(&head, 10);
-	printf("\n Before Sort ");
-	display(head);
-
-	// Function call
-	quick_sort(head, last_node(head));
+	//calling the insert funtion and preparing the required linked list
 	printf("\n After Sort ");
 	display(head);
-	return 0;
+
+	
 }
