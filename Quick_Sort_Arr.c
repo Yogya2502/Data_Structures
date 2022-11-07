@@ -1,20 +1,20 @@
 #include<stdio.h>
 
 int main(){
-   int i, count, num[25];
+  int i, flag, num[60];
    printf("Enter the count of numbers to be sorted:\n ");
-   scanf("%d",&count);
+   scanf("%d",&flag);
    printf("Enter the elements:\n ");
-   for(i=0;i<count;i++)
+   for(i=0;i<flag;i++)
    scanf("%d",&num[i]);
-   quicksort(num,0,count-1);
+   sort(num,0,flag-1);
    printf("Order of Sorted elements: ");
-   for(i=0;i<count;i++)
+   for(i=0;i<flag;i++)
    printf(" %d",num[i]);
    return 0;
 }
 // F stand for the first element, L stands for the last element and P is the pivotal element
-void quicksort(int num[25],int F,int L){
+void sort(int num[60],int F,int L){
    int i, j, P, temp;
    if(F<L){
       i=F;
@@ -34,11 +34,8 @@ void quicksort(int num[25],int F,int L){
       temp=num[P];
       num[P]=num[j];
       num[j]=temp;
-      quicksort(num,F,j-1);
-      quicksort(num,j+1,L);
+      sort(num,F,j-1);
+      sort(num,j+1,L);
    }
 }
-
-// to add the list that is to be sorted, do not add commas. Add number with spaces in between.
-// reference taken from https://www.geeksforgeeks.org/quick-sort/
 
