@@ -29,14 +29,15 @@ int main()
     third->next = fourth;
   
     fourth->data = 20;
-    fourth->next = NULL;
+    fourth->next = NULL
+     // we have now inserted data and stored the pointer to the next node in the each of the current nodes
 
     printlist(head);
 
     return 0;
 }
 
-int printlist(struct Node* n)
+int printlist(struct Node* n) // this function has been created in order to print the list that we created 
 {
     while (n != NULL) {
         printf(" %d ", n->data);
