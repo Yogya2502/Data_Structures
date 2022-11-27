@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+ void heapify(int a[],int n,int i)  //heapify function
+ {
+    int maximum = i; // Initialize maximum as root
+    int left = 2 * i + 1; // left = 2*i + 1
+    int right = 2 * i + 2; // right = 2*i + 2
+    int temp=0;   //temporary variable for swapping
+      
+    if (left < n && a[left] > a[maximum]) // Check if left child is larger than root. If true, make left child as root
+    {
+        maximum = left;
+    }
+    if (right < n && a[right] > a[maximum]) //Check if right child is larger than root. If true, make right child as root
+    {
+        maximum = right; 
+    }
+    if (maximum != i)
+    {
+        temp = a[i]; 
+        a[i] = a[maximum]; //swap the root with the largest child
+        a[maximum] = temp;  
+        
+        heapify(a,n,maximum);
+    }
+}
+  
+void heapSort(int a[], int n)  
+{
+    int temp=0; //temporary variable for swapping
+    
+    for (int i = n/2-1;i >= 0;i--) // Build heap (rearrange array)
+    {
+        heapify(a,n,i);
+    }
+        
+    for (int i = n - 1; i >= 0; i--) // Extract an element from the heap one by one
+    {
+        temp = a[0]; 
+        a[0] = a[i]; //swap the root with the largest child
+        a[i] = temp; 
+        
+        heapify(a,i,0); // call maximum heapify on the reduced heap
+    }
+}
+// cited from https://www.geeksforgeeks.org/heap-sort/ 
+void thirdLargestNum(int *maximumHeap, int n) // Function to find the third largest number in the heap
+{
+    heapSort(maximumHeap,n); //sort the array using heap sort
+   // printf("\n Third Largest number of the Heap is: %d", maximumHeap[n-3]);//printing the third largest number
+}
+
+int main() 
+{
+    int a[] = {11, 15, 34, 78, 56, 89}; // Setting the elements of the heap to the values in the array
+    int n = sizeof(a)/sizeof(a[0]); // Setting the nth element of the heap to the size of the array divided by the size of the array at the first index
+  
+    heapSort(a, n);
+  
+    printf("Maximum Heap is: "); 
+    
+    for(int i=0;i<n;i++) // Looping through the array and printing the values 
+    {
+        printf("%d ",a[i]); // Printing the values of the array
+    }
+    
+    int maximumHeap[n]; // Setting the maximum heap to the size of the array
+    
+    for(int i=0;i<n;i++) // Looping through the array and incrementing by 1 for all cases where i is less than n
+    {
+        maximumHeap[i] = a[i]; // Setting the maximum heap to the values of the array
+    }
+    
+    thirdLargestNum(maximumHeap, n); 
+    
+    return 0;
+}
+
