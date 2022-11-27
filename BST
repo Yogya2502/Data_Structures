@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//create node strucutre
+struct bst{
+    int data;
+    struct bst* right; //right child
+    struct bst* left; //left child
+//create the node structure
+};
+
+
+void swapfunction(int *a,int *b) 
+{
+    int x = *a; //changing variable name
+    *a = *b; //swap variable 
+    *b = x; // swap the value with x
+//swap function
+}
+
+
+void selection(int array[], int n )
+{
+    int temp; //creating temporary variable 
+    int i = 0;
+
+  while(i<n-1)
+  {
+     int j = i+1;
+     temp = i;
+     j = i + 1;
+     while(j<n)
+     {  
+        if(array[j]< array[temp])
+        {
+         temp = j;
+        }   
+        j++;
+     }
+     if(temp!=i)
+     {
+        swapfunction(&array[i],&array[temp]);
+     }
+     i++;
+  }
+
+}
+
+
+struct bst* sorttree(int array[], int st, int end) //sort through the tree
+{   
+    selection(array,end+1);
+
+   if(st > end)
+   {
+    return NULL;
+   }
+
+   int mid = (st+end)/2;
+   struct bst* head = (struct bst*)malloc(sizeof(struct bst));
+    head->data = array[mid];
+    head->right = NULL;
+    head->left = NULL;
+
+   head->right = sorttree(array,mid+1, end); //sort right side of the tree
+   head->left = sorttree(array,st, mid-1); //sort left side of the tree
+
+   return head;
+
+}
+
+void prefix(struct bst *node)
+{
+  if(node == NULL)
+  {
+    return;
+  }
+  printf("%d/n",node->data); 
+  prefix(node->right); 
+  prefix(node->left); 
+
+}
+
+void infix(struct bst* node)
+{
+  if(node == NULL)
+  {
+    return;
+  }
+  
+  infix(node->right); //infix right side of the tree 
+  printf("%d\n",node->data); //print the statement 
+  infix(node->left); //infix left side of the tree
+
+}
+
+
+
+int main(){
+
+int a[]= {5, 10, 15, 20, 25}; 
+int n = sizeof(a)/sizeof(a[0]);
+struct bst* v = (struct bst*)malloc(sizeof(struct bst));
+v = sorttree(a,0,n-1);
+infix(v);
+
+
+return 0;
+
+}
+
+
+//the following is the code from my Github that I am using as reference- 
+
+/*
+void selection(NodeAddress head)// we have created the function for selection sort which keeps on swaping the elements till the highest value reaches the end of the linked list and the lowest value element at the head 
+{
+    NodeAddress temp, top, prev, curr;     // declaring the pointers
+    temp = head;                                   
+    while(temp->next != NULL){                    
+        top = temp;                              
+        prev = temp;                                
+        curr = temp->next;                       
+        // We Move the Value to End of the List    
+        while(curr != NULL){
+            if(curr->new < top->new){           
+                top = curr;                        
+            }
+            curr = curr->next;                     
+        }
+
+        // We Swap the Value with the End of the List
+        int swap_temp = temp->new;
+        temp->new = top->new;
+        top->new = swap_temp;
+        
+        // update temp to next node and the smallest value is at the head node
+        temp = temp->next;                          
+    }
+}
+*/
