@@ -1,0 +1,50 @@
+#include <stdio.h> 
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+struct Queue {
+  int data[MAX_SIZE];
+  int front;
+  int rear;
+};
+
+void enqueue(struct Queue *queue, int value) {
+  if ((queue->rear + 1) % MAX_SIZE != queue->front) {
+    queue->data[queue->rear] = value;
+    queue->rear = (queue->rear + 1) % MAX_SIZE;
+  }
+}
+
+int dequeue(struct Queue *queue) {
+  if (queue->front != queue->rear) {
+    int value = queue->data[queue->front];
+    queue->front = (queue->front + 1) % MAX_SIZE;
+    return value;
+  }
+  return -1;
+}
+
+int peek(struct Queue *queue) {
+  if (queue->front != queue->rear) {
+    return queue->data[queue->front];
+  }
+  return -1;
+}
+
+int main() {
+  struct Queue queue;
+  queue.front = 0;
+  queue.rear = 0;
+
+  enqueue(&queue, 10);
+  enqueue(&queue, 20);
+  enqueue(&queue, 30);
+
+  printf("%d\n", dequeue(&queue));  // prints 10
+  printf("%d\n", dequeue(&queue));  // prints 20
+  printf("%d\n", dequeue(&queue));  // prints 30
+  printf("%d\n", dequeue(&queue));  // prints -1 (queue is empty)
+
+  return 0;
+}
