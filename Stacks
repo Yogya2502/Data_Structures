@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+struct Stack {
+  int data[MAX_SIZE];
+  int top;
+};
+
+void push(struct Stack *stack, int value) {
+  if (stack->top < MAX_SIZE) {
+    stack->data[++stack->top] = value;
+  }
+}
+
+int pop(struct Stack *stack) {
+  if (stack->top > -1) {
+    return stack->data[stack->top--];
+  }
+  return -1;
+}
+
+int peek(struct Stack *stack) {
+  if (stack->top > -1) {
+    return stack->data[stack->top];
+  }
+  return -1;
+}
+
+int main() {
+  struct Stack stack;
+  stack.top = -1;
+
+  push(&stack, 10);
+  push(&stack, 20);
+  push(&stack, 30);
+
+  printf("%d\n", pop(&stack));  // prints 30
+  printf("%d\n", pop(&stack));  // prints 20
+  printf("%d\n", pop(&stack));  // prints 10
+  printf("%d\n", pop(&stack));  // prints -1 (stack is empty)
+
+  return 0;
+}
